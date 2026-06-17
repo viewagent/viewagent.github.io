@@ -14,16 +14,51 @@
       <h3>1 · Single-turn understanding vs. multi-turn planning</h3>
       <p>
         Single-turn understanding ≫ multi-turn planning. The best VLMs reach ~70% on short-horizon P2V/V2P
-        but <strong>collapse to ≤21%</strong> on Interactive View Planning. Most models score below 10%; on
+        but <strong>collapse to at most 21.3%</strong> on Interactive View Planning. Most models score below 10%; on
         long-horizon samples most fall below 3%. Open-weight models stay below 5% on IVP.
       </p>
       <div class="fd-stat-strip">
-        <div class="fd-stat"><div class="num">70.7%</div><div class="lbl">GPT-5.4 Pro · P2V short</div></div>
-        <div class="fd-stat"><div class="num">21.4%</div><div class="lbl">Best IVP (Gemini 3.1 Pro)</div></div>
+        <div class="fd-stat"><div class="num">70.8%</div><div class="lbl">GPT-5.4 Pro · P2V short</div></div>
+        <div class="fd-stat"><div class="num">21.3%</div><div class="lbl">Best IVP (Gemini 3.1 Pro)</div></div>
         <div class="fd-stat"><div class="num">&lt;5%</div><div class="lbl">Every open-weight model · IVP</div></div>
         <div class="fd-stat"><div class="num">&lt;3%</div><div class="lbl">Most models · long-horizon IVP</div></div>
       </div>
       <p class="finding-tldr"><strong>Takeaway.</strong>&nbsp;Local view-action knowledge does not compose into multi-turn plans.</p>
+    </div>
+
+    <!-- 1b. View matching vs. mental localization -->
+    <div class="finding-block">
+      <h3>1b · When models succeed, are they reasoning or just matching?</h3>
+      <p>
+        A competent spatial reasoner need not see the target to localize it: after a few informative moves it
+        could infer where the target lies and submit its pose without ever visiting it. We test whether frontier
+        successes work this way. For every successful IVP rollout, we check whether the agent observed any view
+        within the success threshold (0.5&nbsp;m / 30°) of the target before answering. Across all five models, at
+        least <strong>90%</strong> of successes (up to <strong>99.1%</strong> for Gemini 3.1 Pro) follow such a
+        visual encounter. Genuine inference of a correct pose, without ever visiting a threshold-close view,
+        accounts for at most <strong>~10%</strong> of successes.
+      </p>
+      <div class="fd-table-card">
+        <div class="table-title">IVP successes: visual encounter vs. genuine inference</div>
+        <table class="fd-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>#Success</th>
+              <th class="metric-hi">Visited target view</th>
+              <th>Inferred (no visit)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.4 Pro</td>     <td>101</td><td class="metric-hi">99 (98.0%)</td> <td>2 (2.0%)</td></tr>
+            <tr><td>Gemini 3.1 Pro</td>  <td>113</td><td class="metric-hi">112 (99.1%)</td><td>1 (0.9%)</td></tr>
+            <tr><td>GPT-5.4</td>         <td>88</td> <td class="metric-hi">83 (94.3%)</td> <td>5 (5.7%)</td></tr>
+            <tr><td>Grok 4.20 Beta</td>  <td>42</td> <td class="metric-hi">38 (90.5%)</td> <td>4 (9.5%)</td></tr>
+            <tr><td>Claude Opus 4.6</td> <td>57</td> <td class="metric-hi">54 (94.7%)</td> <td>3 (5.3%)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="finding-tldr"><strong>Takeaway.</strong>&nbsp;The planning gap is really a cognitive gap: models mostly succeed by view matching after they reach the target, not by localizing it in advance.</p>
     </div>
 
     <!-- 2. Rotation vs Translation -->
@@ -102,8 +137,8 @@
       <h3>4 · Does higher-fidelity rendering change the picture?</h3>
       <p>
         We re-render the test set with 3D Gaussian Splatting (GS), then re-evaluate at budget = 10. IVP
-        improves only marginally. P2V/V2P show mixed and sometimes large swings — Gemini 3.1 Pro gains +6.5
-        on P2V, while GPT-5.4 and Grok 4.20 Beta <em>lose</em> 14.5 and 13.1 points on V2P.
+        improves only marginally. P2V/V2P show mixed and sometimes large swings — Gemini 3.1 Pro gains +6.4
+        on P2V, while GPT-5.4 and Grok 4.20 Beta <em>lose</em> 14.4 and 13.0 points on V2P.
       </p>
       <div class="render-compare">
         <div class="render-compare-head">
@@ -183,7 +218,7 @@
             <tr><th>Method</th><th>Short</th><th>Long</th><th class="metric-hi">All</th></tr>
           </thead>
           <tbody>
-            <tr><td>Base model (prompting)</td>             <td>7.1</td>  <td>0.0</td>  <td class="metric-hi">2.5</td></tr>
+            <tr><td>Base model (prompting)</td>             <td>7.0</td>  <td>0.0</td>  <td class="metric-hi">2.5</td></tr>
             <tr><td>Direct PPO</td>                          <td>7.0</td>  <td>1.2</td>  <td class="metric-hi">3.2</td></tr>
             <tr><td>Direct GRPO (filter)</td>                <td>10.8</td> <td>2.2</td>  <td class="metric-hi">5.2</td></tr>
             <tr><td>Success-Only Bootstrapping</td>          <td>14.0</td> <td>2.0</td>  <td class="metric-hi">6.2</td></tr>
@@ -227,7 +262,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Gemini 3.1 Pro</td>           <td class="metric-hi">21.4</td><td>15.7</td><td>31.5</td></tr>
+            <tr><td>Gemini 3.1 Pro</td>           <td class="metric-hi">21.3</td><td>15.7</td><td>31.5</td></tr>
             <tr><td>GPT-5.4</td>                  <td class="metric-hi">16.6</td><td>13.0</td><td>31.3</td></tr>
             <tr class="row-ours">
               <td>Ours · Qwen2.5-VL-7B</td>

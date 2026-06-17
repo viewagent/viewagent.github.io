@@ -13,7 +13,7 @@
 
   <div class="resources-section">
     <div class="resources-buttons">
-      <a href="/viewsuite_paper.pdf" class="resource-button" target="_blank" rel="noopener">
+      <a href="https://arxiv.org/abs/2605.29563" class="resource-button" target="_blank" rel="noopener">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="none" stroke="currentColor" stroke-width="2"></path>
           <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2"></polyline>
@@ -43,6 +43,12 @@
           <circle cx="15" cy="10" r="0.8" fill="currentColor"></circle>
         </svg>
         <span>Data</span>
+      </a>
+      <a href="#" class="resource-button" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"></path>
+        </svg>
+        <span>TL;DR</span>
       </a>
     </div>
   </div>
@@ -91,23 +97,25 @@
   <div class="hero-abstract">
     <p>
       Can VLMs predict how each camera move changes the view, and plan many such moves ahead?
-      We call this capability <em>view planning</em>, requiring (1) <strong>understanding</strong> how a single
-      action transforms the view, and (2) <strong>composing</strong> many such transformations across
-      multi-turn plans to identify a target view.
+      We call this ability <em>view planning</em>: using camera moves as planning primitives to find a
+      target view in 3D. We study it in <strong>ViewSuite</strong>, a 6-DoF environment on real ScanNet
+      scenes, and decompose it into two abilities: <strong>tracking</strong> how given camera actions change
+      the view, and <strong>composing</strong> a path that localizes an unseen target view.
     </p>
     <p>
-      We probe both abilities in <strong>ViewSuite</strong>, a 3D point-cloud environment on real ScanNet scenes.
-      Across 13 frontier VLMs, a critical planning gap emerges: they possess basic view-action knowledge but fail
-      to compose it across multi-turn plans, with the gap widening as viewpoint distance grows.
+      Across 13 frontier VLMs, a sharp planning gap emerges: models track local view transitions but
+      collapse when they must plan toward an unseen target view. This inability cannot simply be fixed by
+      reinforcement learning (RL): with success near <strong>2.5%</strong>, reward is too sparse for RL to
+      bootstrap.
     </p>
     <p>
-      To close this gap, we propose an iterative framework that alternates <em>self-exploration</em>
-      with <em>view graph distillation</em>. The key insight is that all exploration trajectories,
-      regardless of their outcome, collectively form a <strong>view graph</strong> that compactly
-      captures how viewpoints connect across a scene; distilling this graph into diverse supervised
-      tasks reshapes the policy distribution and overcomes the sparse rewards that stall pure RL.
-      This improves Qwen2.5-VL-7B from <strong>2.5% &rarr; 47.8%</strong> on interactive view
-      planning, surpassing GPT-5.4 Pro (18.5%) and Gemini 3.1 Pro (21.4%).
+      Our key insight is to distill valid view transitions from on-policy <em>self-exploration</em>,
+      aggregating them into a <strong>view graph</strong> and distilling it into supervised demonstrations.
+      With no stronger teacher, this lifts Qwen2.5-VL-7B from <strong>2.5% &rarr; 47.8%</strong> on
+      interactive view planning, surpassing GPT-5.4 Pro (19.9%) and Gemini 3.1 Pro (21.3%). View planning
+      is a clean probe for prospective spatial reasoning: looking ahead, predicting how future viewpoint
+      changes reshape observation, and inferring a target view's camera pose before it is fully observed,
+      a capability frontier VLMs still lack.
     </p>
   </div>
 </section>
