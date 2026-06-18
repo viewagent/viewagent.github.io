@@ -14,8 +14,52 @@ import '../styles/resources.css';
 import '../styles/findings.css';
 
 const pageTitle = 'Planning with the Views | ViewSuite';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "headline": "Planning with the Views",
+      "name": "Planning with the Views",
+      "url": "https://viewsuite.github.io/",
+      "sameAs": "https://arxiv.org/abs/2605.29563",
+      "datePublished": "2026-05-28",
+      "image": "https://viewsuite.github.io/figures/environment_overview.png",
+      "abstract": "Can VLMs predict how each camera move changes the view, and plan many such moves ahead? We call this ability view planning: using camera moves as planning primitives to find a target view in 3D.",
+      "keywords": "view planning, vision-language models, VLM, agent, camera pose, camera pose estimation, embodied AI, active perception, spatial reasoning, 6-DoF, ScanNet, world model, reinforcement learning, self-exploration, view graph distillation, prospective spatial reasoning",
+      "author": [
+        { "@type": "Person", "name": "Kangrui Wang" },
+        { "@type": "Person", "name": "Linjie Li" },
+        { "@type": "Person", "name": "Zhengyuan Yang" },
+        { "@type": "Person", "name": "Shiqi Chen" },
+        { "@type": "Person", "name": "Zihan Wang" },
+        { "@type": "Person", "name": "Li Fei-Fei" },
+        { "@type": "Person", "name": "Jiajun Wu" },
+        { "@type": "Person", "name": "Leonidas Guibas" },
+        { "@type": "Person", "name": "Lijuan Wang" },
+        { "@type": "Person", "name": "Manling Li" }
+      ],
+      "publisher": { "@type": "Organization", "name": "arXiv" }
+    },
+    {
+      "@type": "Dataset",
+      "name": "ViewSuite",
+      "description": "A 6-DoF view-planning benchmark on real ScanNet 3D scenes, with about 55K view pairs and 165K task instances across three tasks: Path-to-View, View-to-Path, and Interactive View Planning.",
+      "url": "https://viewsuite.github.io/",
+      "sameAs": [
+        "https://huggingface.co/collections/MLL-Lab/viewsuite-datasets",
+        "https://github.com/mll-lab-nu/ViewSuite",
+        "https://arxiv.org/abs/2605.29563"
+      ],
+      "creator": { "@type": "Organization", "name": "MLL Lab, Northwestern University" },
+      "keywords": "view planning, camera pose, agent, VLM, spatial reasoning, 3D scenes, benchmark"
+    }
+  ]
+};
 ---
 <Layout title={pageTitle}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <Hero />
   <Cases />
   <Algorithm />
