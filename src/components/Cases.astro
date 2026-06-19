@@ -15,6 +15,13 @@ const tasks = tasksData as { p2v: any[]; v2p: any[] };
       <em>composing</em> them into a multi-turn plan that localizes an unseen target view.
     </p>
 
+    <figure class="overview-figure">
+      <img src="figures/environment_overview.png" alt="Overview of ViewSuite: a point-cloud environment with rendered first-person views, and the three tasks P2V, V2P, and IVP." />
+      <figcaption>
+        <strong>Overview of ViewSuite.</strong> <em>Left</em>: a point-cloud environment built on ScanNet, with a top-down view marking the initial (blue) and target (orange) viewpoints and their rendered first-person views. <em>Middle</em>: Path-to-View (P2V) and View-to-Path (V2P), both single-turn. <em>Right</em>: Interactive View Planning (IVP), a multi-turn task where the agent issues 6-DoF camera actions to localize the target view and submits its camera pose.
+      </figcaption>
+    </figure>
+
     <!-- Task: P2V -->
     <article class="task-block">
       <div class="task-head">
@@ -77,6 +84,32 @@ const tasks = tasksData as { p2v: any[]; v2p: any[] };
     text-align: center;
   }
   .section-lead em { color: #5b21b6; font-style: italic; }
+
+  .overview-figure {
+    max-width: 1000px;
+    margin: 0 auto 2.5rem auto;
+    background: #fff;
+    border: 1px solid #e0e7ff;
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.07);
+    text-align: center;
+  }
+  .overview-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .overview-figure figcaption {
+    margin: 0.75rem auto 0 auto;
+    max-width: 920px;
+    color: #5b5a85;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    text-align: left;
+  }
+  .overview-figure figcaption strong { color: #4338ca; }
+  .overview-figure figcaption em { color: #5b21b6; font-style: italic; }
 
   .task-block {
     max-width: 1080px;
