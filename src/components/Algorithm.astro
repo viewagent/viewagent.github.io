@@ -6,11 +6,13 @@
     <h2 class="section-title">Self-Exploration with View Graph Distillation</h2>
 
     <p class="section-lead">
-      Each iteration alternates two stages. In the <strong>self-exploration</strong> stage, the agent
-      interacts with ViewSuite environments and its trajectories are incrementally compressed into a
-      <em>view graph</em>. In the <strong>view graph distillation</strong> stage, paths are sampled
-      from this graph and reformulated into diverse view-planning demonstrations used to fine-tune the
-      policy. The resulting model initializes the next self-exploration stage.
+      Each iteration alternates two stages. In the <strong>self-exploration</strong> stage, the VLM agent
+      interacts with ViewSuite environments via reinforcement learning (RL), and its trajectories are
+      incrementally compressed into a <em>view graph</em>. In the <strong>view graph distillation</strong>
+      stage, paths are sampled from this graph and reformulated into diverse view-planning demonstrations
+      used to fine-tune the policy. The resulting model initializes the next self-exploration stage. This
+      RL-then-distillation loop is a form of <em>on-policy distillation</em>: the VLM agent learns from its
+      own on-policy rollouts, with no teacher stronger than the environment itself.
     </p>
 
     <div class="pipeline-figure">
