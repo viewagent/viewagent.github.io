@@ -13,7 +13,7 @@ import '../styles/authors.css';
 import '../styles/resources.css';
 import '../styles/findings.css';
 
-const pageTitle = 'Planning with the Views | ViewSuite';
+const pageTitle = 'Planning with the Views | ViewAgent';
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -22,12 +22,12 @@ const structuredData = {
       "@type": "ScholarlyArticle",
       "headline": "Planning with the Views",
       "name": "Planning with the Views",
-      "url": "https://viewsuite.github.io/",
+      "url": "https://viewagent.github.io/",
       "sameAs": "https://arxiv.org/abs/2605.29563",
       "datePublished": "2026-05-28",
-      "image": "https://viewsuite.github.io/figures/environment_overview.png",
+      "image": "https://viewagent.github.io/figures/environment_overview.png",
       "abstract": "Can VLMs predict how each camera move changes the view, and plan many such moves ahead? We call this ability view planning: using camera moves as planning primitives to find a target view in 3D.",
-      "keywords": "view planning, vision-language models, VLM, VLM agent, view-planning agent, agent, agentic reinforcement learning, reinforcement learning, on-policy distillation, view graph distillation, self-exploration, camera pose, camera pose estimation, embodied AI, active perception, spatial reasoning, 6-DoF, ScanNet, world model, prospective spatial reasoning",
+      "keywords": "ViewAgent, ViewSuite, view planning, vision-language models, VLM, VLM agent, view-planning agent, agent, agentic reinforcement learning, reinforcement learning, on-policy distillation, view graph distillation, self-exploration, camera pose, camera pose estimation, embodied AI, active perception, spatial reasoning, 6-DoF, ScanNet, world model, prospective spatial reasoning",
       "author": [
         { "@type": "Person", "name": "Kangrui Wang" },
         { "@type": "Person", "name": "Linjie Li" },
@@ -45,15 +45,22 @@ const structuredData = {
     {
       "@type": "Dataset",
       "name": "ViewSuite",
+      "alternateName": "ViewAgent",
       "description": "A 6-DoF view-planning benchmark on real ScanNet 3D scenes, with about 55K view pairs and 165K task instances across three tasks: Path-to-View, View-to-Path, and Interactive View Planning.",
-      "url": "https://viewsuite.github.io/",
+      "url": "https://viewagent.github.io/",
       "sameAs": [
         "https://huggingface.co/collections/MLL-Lab/viewsuite-datasets",
         "https://github.com/mll-lab-nu/ViewSuite",
         "https://arxiv.org/abs/2605.29563"
       ],
       "creator": { "@type": "Organization", "name": "MLL Lab, Northwestern University" },
-      "keywords": "view planning, VLM agent, camera pose, agent, reinforcement learning, on-policy distillation, VLM, spatial reasoning, 3D scenes, benchmark"
+      "keywords": "ViewAgent, ViewSuite, view planning, VLM agent, camera pose, agent, reinforcement learning, on-policy distillation, VLM, spatial reasoning, 3D scenes, benchmark"
+    },
+    {
+      "@type": "WebSite",
+      "name": "ViewAgent",
+      "alternateName": "ViewSuite",
+      "url": "https://viewagent.github.io/"
     }
   ]
 };
