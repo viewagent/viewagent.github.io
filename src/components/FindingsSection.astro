@@ -71,7 +71,7 @@
         understanding and path planning.
       </p>
       <div class="finding-figure">
-        <img src="figures/dual_axis.png" alt="Dual axis: P2V/V2P degrade with rotation, IVP collapses with translation" />
+        <img loading="lazy" src="figures/dual_axis.png" alt="Dual axis: P2V/V2P degrade with rotation, IVP collapses with translation" />
         <p class="figure-caption">
           P2V/V2P (left two): accuracy falls along the rotation axis. IVP (right): success collapses along the
           position axis (~7× drop for GPT-5.4 Pro).
@@ -92,7 +92,7 @@
         contribute almost nothing to IVP.
       </p>
       <div class="finding-figure">
-        <img src="figures/factor_heatmap.png" alt="Spearman correlation between sample factors and per-model success" />
+        <img loading="lazy" src="figures/factor_heatmap.png" alt="Spearman correlation between sample factors and per-model success" />
         <p class="figure-caption">
           Rows: 12 sample-level factors. Columns: per-model binary success on P2V, V2P, IVP. Blue cells are
           negative correlations (factor makes the sample harder), red cells positive. The strong negative
@@ -146,7 +146,7 @@
         </div>
         <div class="render-compare-grid render-compare-grid-3">
           <figure>
-            <img src="figures/render_compare/pc_traj.gif" alt="Gemini 3.1 Pro on point-cloud rendering"/>
+            <img loading="lazy" src="figures/render_compare/pc_traj.gif" alt="Gemini 3.1 Pro on point-cloud rendering"/>
             <figcaption>
               <strong>Gemini 3.1 Pro · Point Cloud</strong>
               <span class="pill-ok">success · 10 turns</span>
@@ -154,7 +154,7 @@
             </figcaption>
           </figure>
           <figure>
-            <img src="figures/render_compare/gs_traj.gif" alt="Gemini 3.1 Pro on Gaussian-Splat rendering"/>
+            <img loading="lazy" src="figures/render_compare/gs_traj.gif" alt="Gemini 3.1 Pro on Gaussian-Splat rendering"/>
             <figcaption>
               <strong>Gemini 3.1 Pro · Gaussian Splat</strong>
               <span class="pill-ok">success · 4 turns</span>
@@ -162,7 +162,7 @@
             </figcaption>
           </figure>
           <figure>
-            <img src="figures/render_compare/gpt54_pc_traj.gif" alt="GPT-5.4 on point-cloud rendering"/>
+            <img loading="lazy" src="figures/render_compare/gpt54_pc_traj.gif" alt="GPT-5.4 on point-cloud rendering"/>
             <figcaption>
               <strong>GPT-5.4 · Point Cloud</strong>
               <span class="pill-ok">success · 6 turns</span>
@@ -294,7 +294,7 @@
         show flat or erratic target coverage instead.
       </p>
       <div class="finding-figure">
-        <img src="figures/coverage_analysis.png" alt="Two-phase exploration: scene coverage then target intersection" />
+        <img loading="lazy" src="figures/coverage_analysis.png" alt="Two-phase exploration: scene coverage then target intersection" />
         <p class="figure-caption">
           Left: scene coverage ratio. Right: target intersection ratio. Our trained model is the only one
           with sustained monotonic growth on the target axis.
@@ -302,7 +302,7 @@
       </div>
       <details class="more-details">
         <summary>Full model comparison (all 15 models)</summary>
-        <img src="figures/coverage_analysis_all.png" alt="Coverage curves across all 15 models" class="details-img"/>
+        <img loading="lazy" src="figures/coverage_analysis_all.png" alt="Coverage curves across all 15 models" class="details-img"/>
       </details>
       <p class="finding-tldr"><strong>Takeaway.</strong>&nbsp;The trained policy follows a goal-directed two-phase trajectory; baselines do not.</p>
     </div>
@@ -345,7 +345,7 @@
         our model maintains a much higher success rate on harder episodes.
       </p>
       <div class="finding-figure">
-        <img src="figures/turn_distribution.png" alt="Turn distribution and success by turn count" />
+        <img loading="lazy" src="figures/turn_distribution.png" alt="Turn distribution and success by turn count" />
         <p class="figure-caption">
           (a) Total rollouts by turn count.&nbsp; (b) Successful rollouts.&nbsp; (c) Success rate by turns used.
         </p>
