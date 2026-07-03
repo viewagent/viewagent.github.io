@@ -17,7 +17,7 @@ Key facts:
 - [Project page](https://viewagent.github.io/)
 - [Code on GitHub](https://github.com/mll-lab-nu/ViewAgent)
 - [Dataset on Hugging Face](https://huggingface.co/datasets/MLL-Lab/viewsuite)
-- [Models on Hugging Face](https://huggingface.co/collections/MLL-Lab/viewsuite-models)
+- [Models on Hugging Face](https://huggingface.co/collections/MLL-Lab/viewagent-models)
 - [TL;DR thread on X](https://x.com/ManlingLi_/status/2067697152722415623)
 
 ## Related benchmarks

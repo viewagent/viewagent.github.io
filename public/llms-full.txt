@@ -7,7 +7,7 @@ Affiliations: Northwestern University (MLL Lab), University of Washington, Micro
 Project page: https://viewagent.github.io/ (https://viewsuite.github.io/ redirects here)
 Code: https://github.com/mll-lab-nu/ViewAgent
 Dataset: https://huggingface.co/datasets/MLL-Lab/viewsuite
-Models: https://huggingface.co/collections/MLL-Lab/viewsuite-models
+Models: https://huggingface.co/collections/MLL-Lab/viewagent-models
 
 ## What is view planning?
 
