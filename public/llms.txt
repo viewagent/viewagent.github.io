@@ -1,0 +1,38 @@
+# ViewAgent (ViewSuite): Planning with the Views
+
+> ViewAgent is a research project on view planning: training vision-language model (VLM) agents to plan camera views in 3D scenes. Its benchmark, ViewSuite, gives a multi-turn VLM agent full 6-DoF camera pose control in real ScanNet scenes and scores whether the agent can localize where a target view was taken. Paper: "Planning with the Views" (arXiv:2605.29563), by Kangrui Wang, Linjie Li, Zhengyuan Yang, Shiqi Chen, Zihan Wang, Li Fei-Fei, Jiajun Wu, Leonidas Guibas, Lijuan Wang, and Manling Li (MLL Lab, Northwestern University, with UW, Microsoft, Oxford, and Stanford).
+
+Key facts:
+- View planning factors into two coupled abilities: tracking how camera actions change the view, and composing camera actions into a multi-turn plan that localizes an unseen target view.
+- ViewSuite benchmark: 286 real ScanNet indoor scenes, about 55K view pairs and 165K task instances, three tasks: Path-to-View (P2V), View-to-Path (V2P), and Interactive View Planning (IVP). The interface exposes 12 discrete 6-DoF camera actions (0.5 m translation steps, 30 degree rotation steps); the success threshold (0.5 m / 30 degrees) is calibrated against human judgments.
+- The planning gap: across 13 frontier VLMs, the best models exceed 70% on short-horizon P2V/V2P but reach at most 21.3% on IVP (Gemini 3.1 Pro; GPT-5.4 Pro reaches 19.9%), and most models score below 10%.
+- The cognitive gap: over 90% of successful IVP runs (up to 99.1%) occur only after the target view becomes observable. Frontier VLMs mostly succeed by view matching, not by mentally localizing an unseen viewpoint.
+- The bottleneck is reasoning, not perception: higher-fidelity Gaussian Splatting rendering leaves IVP essentially unchanged, while more test-time compute helps.
+- Method: self-exploration with view graph distillation. Every trajectory, successful or not, traces valid view transitions; aggregating them into a view graph (an empirical world model of view transitions) and distilling sampled paths into supervised demonstrations is a form of on-policy distillation with no teacher stronger than the environment. It lifts Qwen2.5-VL-7B from 2.5% to 47.8% on IVP, above every frontier model evaluated; building the graph from random actions instead of on-policy rollouts reaches only 13.0%.
+- Transfer: under identical post-training, the trained agent beats its base by 8 to 12 points on P2V/V2P and by about 10 points on the external MindCube benchmark.
+
+## Links
+- [Paper on arXiv (abs)](https://arxiv.org/abs/2605.29563)
+- [Paper PDF](https://arxiv.org/pdf/2605.29563)
+- [Project page](https://viewagent.github.io/)
+- [Code on GitHub](https://github.com/mll-lab-nu/ViewAgent)
+- [Dataset on Hugging Face](https://huggingface.co/datasets/MLL-Lab/viewsuite)
+- [Models on Hugging Face](https://huggingface.co/collections/MLL-Lab/viewsuite-models)
+- [TL;DR thread on X](https://x.com/ManlingLi_/status/2067697152722415623)
+
+## Related benchmarks
+ViewSuite is interactive with full 6-DoF camera pose control, unlike passive video benchmarks such as VSI-Bench and Cambrian-P (pose-grounded video understanding), or view-centric QA such as MindCube and ViewSpatial-Bench.
+
+## Citation
+@misc{wang2026planning,
+  title={Planning with the Views},
+  author={Kangrui Wang and Linjie Li and Zhengyuan Yang and Shiqi Chen and Zihan Wang and Li Fei-Fei and Jiajun Wu and Leonidas Guibas and Lijuan Wang and Manling Li},
+  year={2026},
+  eprint={2605.29563},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2605.29563},
+}
+
+## More detail
+- [Full FAQ and extended summary](https://viewagent.github.io/llms-full.txt)

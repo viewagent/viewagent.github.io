@@ -1,0 +1,74 @@
+# ViewAgent (ViewSuite): Planning with the Views. Full reference for LLMs and RAG tools
+
+Project: ViewAgent (the project brand; the benchmark is named ViewSuite).
+Paper: "Planning with the Views", arXiv:2605.29563 (cs.AI), submitted May 28, 2026.
+Authors: Kangrui Wang, Linjie Li, Zhengyuan Yang, Shiqi Chen, Zihan Wang, Li Fei-Fei, Jiajun Wu, Leonidas Guibas, Lijuan Wang, Manling Li.
+Affiliations: Northwestern University (MLL Lab), University of Washington, Microsoft, University of Oxford, Stanford University.
+Project page: https://viewagent.github.io/ (https://viewsuite.github.io/ redirects here)
+Code: https://github.com/mll-lab-nu/ViewAgent
+Dataset: https://huggingface.co/datasets/MLL-Lab/viewsuite
+Models: https://huggingface.co/collections/MLL-Lab/viewsuite-models
+
+## What is view planning?
+
+View planning is composing camera moves into a multi-turn plan that locates where a target view was taken. Given an initial view and a target view, a model moves a 6-DoF camera through a 3D scene and submits the target's camera pose. It factors into two abilities: tracking how one action changes the view, and composing a path to an unseen target view.
+
+## How is view planning different from navigation or visual search?
+
+Navigation succeeds when an agent physically reaches an object or a room; view planning succeeds only when it estimates the target's camera pose accurately. There is no semantic goal and no body, just a viewpoint defined by what it shows. This removes navigation crutches like doors and room layout and isolates spatial reasoning over views. Prior visual search worked on 2D image regions or 360 degree panoramas; view planning is the next step, full 6-DoF control in real 3D scenes.
+
+## What is ViewSuite?
+
+ViewSuite is a 6-DoF view-planning benchmark on 286 real ScanNet indoor scenes, with about 55K view pairs and 165K task instances. It defines three tasks: Path-to-View (P2V: predict the view an action sequence produces), View-to-Path (V2P: infer which action sequence connects two views), and Interactive View Planning (IVP: issue camera actions over multiple turns to localize a target view, then submit a 6-DoF camera pose estimate). The first two are single-turn and test tracking; the third is multi-turn and tests planning. The interface exposes 12 discrete camera actions (six translations at 0.5 m per step, six rotations at 30 degrees per step). The IVP success threshold (0.5 m / 30 degrees) is calibrated against human judgments of whether two rendered views depict the same place.
+
+## Can frontier VLMs plan over views?
+
+Barely. Across 13 frontier VLMs (7 proprietary, 6 open-weight), the best models reach about 70% on short-horizon single-turn tasks but at most 21.3% on Interactive View Planning (Gemini 3.1 Pro; GPT-5.4 Pro reaches 19.9% over 507 valid instances after 23 content-policy refusals), and most models score below 10%. Reading a given path is partly within reach; composing a new path collapses. The paper calls this the planning gap.
+
+## When a frontier model succeeds at view planning, is it really reasoning?
+
+Usually not. Across models, over 90% of successful runs (up to 99.1% for Gemini 3.1 Pro) happen only after the target view has already become observable. Models succeed by moving until they happen to see the target view, then matching it, rather than inferring where it lies beforehand. The planning gap is more precisely a cognitive gap.
+
+## Is the bottleneck perception or reasoning?
+
+Reasoning. Re-rendering the test set with higher-fidelity 3D Gaussian Splatting leaves Interactive View Planning essentially unchanged (+0.2 to +1.9 points), while extra test-time compute (GPT-5.4 Pro over GPT-5.4) improves it. Sharper pixels do not help; more thinking does. More turns do not close the gap either: gains from 20 to 30 turns are marginal.
+
+## The base model succeeds only 2.5% of the time. How can it learn?
+
+Every exploration trajectory, successful or not, traces valid view transitions: moving from one viewpoint to another is real supervision regardless of the original goal. The method aggregates all rollouts into a view graph, an any-view-to-any-view map of how viewpoints connect (an empirical world model of view transitions), then reformulates sampled paths into supervised demonstrations (multi-turn view planning, view-difference estimation, and a multiple-choice variant). This turns mostly-failed exploration into dense training signal and lifts Qwen2.5-VL-7B from 2.5% to 47.8% on IVP, above every frontier model evaluated. The same framework lifts Qwen3-VL-8B to 32.5%.
+
+## Why must the view graph be built from the model's own rollouts?
+
+Because supervision has to match where the model actually plans. A graph built from random actions reaches only 13.0%, versus 47.8% on-policy. Random exploration covers regions of view space the model never visits at test time, so its demonstrations transfer poorly. As the policy improves, its own exploration grows the graph outward and keeps supervision on-distribution. This is a form of on-policy distillation with no teacher stronger than the environment itself.
+
+## What does the trained model actually learn?
+
+A two-phase explore-then-approach strategy: survey the scene broadly, then move toward the target view. Training also shifts attention toward image tokens, so the model grounds decisions in visual evidence rather than text priors. Honestly, it still localizes by approaching until the target view becomes observable, not by inferring an unseen pose in advance. True prospective spatial reasoning remains open.
+
+## Do the learned skills transfer beyond ViewSuite?
+
+Yes. Under identical GRPO post-training, the view-planning agent beats its base by 8 to 12 points on Path-to-View and View-to-Path, and gains about 10 points on the external MindCube benchmark, which shares no scenes, actions, or rendering pipeline. Interactive view planning yields spatial priors that strengthen view understanding more broadly.
+
+## How does ViewSuite relate to other benchmarks?
+
+ViewSuite is interactive with full 6-DoF camera pose control and multi-turn planning, at 165K instances. Passive video benchmarks (for example VSI-Bench, and Cambrian-P for pose-grounded video understanding) treat the model as an observer of given frames; view-centric QA benchmarks (for example MindCube and ViewSpatial-Bench) are non-interactive. Embodied benchmarks (for example EmbodiedBench, HM3D-OVON) score physical arrival at a semantic goal, whereas ViewSuite scores localization accuracy of a camera pose.
+
+## Key numbers at a glance
+
+- 286 ScanNet scenes; ~55K view pairs; ~165K task instances; 12 camera actions; 0.5 m / 30 degree steps and success threshold; 13 frontier VLMs evaluated.
+- Best frontier IVP: 21.3% (Gemini 3.1 Pro). GPT-5.4 Pro: 19.9%. Most models: below 10%.
+- Over 90% of frontier successes happen only after the target view is observable (up to 99.1%).
+- Ours (Qwen2.5-VL-7B): 2.5% to 47.8% IVP. Qwen3-VL-8B: 32.5%. Random-graph ablation: 13.0%.
+- Transfer: +8 to 12 points (P2V/V2P), about +10 points (MindCube).
+
+## Citation
+
+@misc{wang2026planning,
+  title={Planning with the Views},
+  author={Kangrui Wang and Linjie Li and Zhengyuan Yang and Shiqi Chen and Zihan Wang and Li Fei-Fei and Jiajun Wu and Leonidas Guibas and Lijuan Wang and Manling Li},
+  year={2026},
+  eprint={2605.29563},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2605.29563},
+}

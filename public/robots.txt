@@ -1,4 +1,36 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://viewsuite.github.io/sitemap.xml
+# AI / LLM crawlers are explicitly welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# LLM-facing summary: https://viewagent.github.io/llms.txt
+Sitemap: https://viewagent.github.io/sitemap.xml

@@ -13,7 +13,7 @@ import '../styles/authors.css';
 import '../styles/resources.css';
 import '../styles/findings.css';
 
-const pageTitle = 'Planning with the Views | ViewAgent';
+const pageTitle = 'Planning with the Views | ViewAgent: View Planning with Multi-turn VLM Agents';
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -40,7 +40,13 @@ const structuredData = {
         { "@type": "Person", "name": "Lijuan Wang" },
         { "@type": "Person", "name": "Manling Li" }
       ],
-      "publisher": { "@type": "Organization", "name": "arXiv" }
+      "publisher": { "@type": "Organization", "name": "arXiv" },
+      "citation": [
+        { "@type": "ScholarlyArticle", "name": "Cambrian-P: Pose-Grounded Video Understanding" },
+        { "@type": "ScholarlyArticle", "name": "MindCube: Spatial Mental Modeling from Limited Views", "url": "https://arxiv.org/abs/2506.21458" },
+        { "@type": "ScholarlyArticle", "name": "VSI-Bench: Visual-Spatial Intelligence Benchmark" },
+        { "@type": "ScholarlyArticle", "name": "ViewSpatial-Bench" }
+      ]
     },
     {
       "@type": "Dataset",
