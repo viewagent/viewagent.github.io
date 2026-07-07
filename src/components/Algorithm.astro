@@ -14,7 +14,10 @@
       stage, paths are sampled from this graph and reformulated into diverse view-planning demonstrations
       used to fine-tune the policy. The resulting model initializes the next self-exploration stage. This
       RL-then-distillation loop is a form of <em>on-policy distillation</em>: the multi-turn VLM agent learns
-      from its own on-policy rollouts, with no teacher stronger than the environment itself.
+      from its own on-policy rollouts, with no teacher stronger than the environment itself. It complements
+      our related framework <a href="https://vagen-ai.github.io/">VAGEN</a> (NeurIPS 2025), which reinforces
+      world model reasoning in multi-turn VLM agents directly through RL rewards: ViewAgent distills an
+      external, empirical world model into the agent, while VAGEN rewards the agent's internal world model.
     </p>
 
     <div class="pipeline-figure">

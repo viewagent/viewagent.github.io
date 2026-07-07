@@ -23,6 +23,9 @@ Key facts:
 ## Related benchmarks
 ViewSuite is interactive with full 6-DoF camera pose control, unlike passive video benchmarks such as VSI-Bench and Cambrian-P (pose-grounded video understanding), or view-centric QA such as MindCube and ViewSpatial-Bench.
 
+## Related projects
+- [VAGEN](https://vagen-ai.github.io/) (NeurIPS 2025, arXiv:2510.16907): a sibling MLL Lab framework that reinforces world model reasoning in multi-turn VLM agents through RL rewards. ViewAgent distills an external, empirical world model (the view graph) into the agent; VAGEN rewards the agent's internal world model reasoning.
+
 ## Citation
 @misc{wang2026planning,
   title={Planning with the Views},
