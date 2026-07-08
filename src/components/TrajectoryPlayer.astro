@@ -465,6 +465,8 @@ const data = rolloutData as {
 
   .player-controls {
     display: flex; align-items: center; gap: 0.5rem;
+    /* buttons + slider + speed select exceed narrow screens; wrap instead of clipping */
+    flex-wrap: wrap;
     background: #f5f6ff;
     padding: 0.6rem 0.75rem;
     border-radius: 10px;

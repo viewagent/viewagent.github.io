@@ -238,6 +238,24 @@
       padding: 0 0.5rem;
     }
 
+    /* The full nav is wider than a phone screen; body clips overflow-x, so
+       without this the right-side items (More Research, MLL Lab, GitHub)
+       are cut off and unreachable. Let the nav itself scroll sideways. */
+    .nav-wrapper {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .main-nav ul {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .main-nav ul::-webkit-scrollbar {
+      display: none;
+    }
+
     .main-nav ul {
       gap: 0; /* Remove fixed gap on mobile */
       justify-content: space-between; /* Distribute items evenly */
