@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://viewsuite.github.io",
+    site: "https://viewagent.github.io",
     build: {
         assets: "_astro"
     },

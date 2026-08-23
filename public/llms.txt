@@ -4,6 +4,7 @@
 
 Key facts:
 - View planning factors into two coupled abilities: tracking how camera actions change the view, and composing camera actions into a multi-turn plan that localizes an unseen target view.
+- Positioning: view planning is an active perception task for vision-language foundation models and a core skill for embodied agents; the agent chooses where to look next (camera control), separately from where to go (navigation).
 - ViewSuite benchmark: 286 real ScanNet indoor scenes, about 55K view pairs and 165K task instances, three tasks: Path-to-View (P2V), View-to-Path (V2P), and Interactive View Planning (IVP). The interface exposes 12 discrete 6-DoF camera actions (0.5 m translation steps, 30 degree rotation steps); the success threshold (0.5 m / 30 degrees) is calibrated against human judgments.
 - The planning gap: across 13 frontier VLMs, the best models exceed 70% on short-horizon P2V/V2P but reach at most 21.3% on IVP (Gemini 3.1 Pro; GPT-5.4 Pro reaches 19.9%), and most models score below 10%.
 - The cognitive gap: over 90% of successful IVP runs (up to 99.1%) occur only after the target view becomes observable. Frontier VLMs mostly succeed by view matching, not by mentally localizing an unseen viewpoint.
